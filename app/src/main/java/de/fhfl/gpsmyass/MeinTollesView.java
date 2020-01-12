@@ -82,13 +82,6 @@ public class MeinTollesView extends View {
 
         mySpaceShip = new Spaceship(pixWidth/2,pixHeight-100); // !TODO
 
-        // !TODO sauberer machen!
-        /*Bullet bulletOne = new Bullet(pixWidth/3, 100);
-        Bullet bulletTwo = new Bullet(pixWidth/2, 200);
-
-        myBullets.add(bulletOne);
-        myBullets.add(bulletTwo);*/
-
         // für andere Klassen, um zu wissen, dass die Breite und Höhe nun gesetzt sind.
         viewIsReady = true;
         Log.i(TAG, "MeinTollesView.onSizeChanged(): View ist nun ready");
@@ -105,34 +98,11 @@ public class MeinTollesView extends View {
         super.onDraw(canvas);
         Log.v(TAG, "onDraw():  ");
 
-
         //Controller activity = (Controller) this.getContext();
-        // Hintergrund fuellen
-        //canvas.drawRGB(255, 255, 50);
-
         rView.set(0, 0, this.getWidth(), this.getHeight());
 
         // Karte darstellen
         canvas.drawBitmap(fhMap, rKarte, rView, myPaint);
-
-        //double x = activity
-        // eine Linie zeichnen
-        //canvas.drawLine(5f, 5f, pixWidth-5f, pixHeight - 5f, myPaint);
-        /*
-        Links oben: 54.776627 -> x = 0
-                    9.448113 -> y = 0
-        Rechts unten: 54.774028 -> x = pixWidth (z.b 600px)
-                      9.453253 -> y = pixHeight (z.b. 600px)
-
-        Beispiel
-          x: 54.7754
-            y: 9.4524
-
-                      locX =
-         */
-        // pixelX =
-        // pixelY = ...
-        //canvas.drawCircle(pixelX, pixelY, 20, myPaint);
 
         mySpaceShip.draw(canvas);
 
@@ -142,54 +112,14 @@ public class MeinTollesView extends View {
             oneBullet.draw(canvas);
         }
 
+        for(Asteroid oneAsteroid : Controller.model.myAsteroids) {
+            oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+3);
+            oneAsteroid.draw(canvas);
+        }
+
         // ein Text
         // canvas.drawText("don't forget the droids", 10, 25, myPaint);
 
     }
-
-    /*public Spaceship getMySpaceShip() {
-        return mySpaceShip;
-    }*/
-
-    // Koordinatengrenzen der Karte
-/*    private double[] GpsLinksOben = {54.776627,9.448113}; // x,y
-    private double[] GpsRechtsUnten = {54.774028, 9.453253}; // x,y
-
-    private double GpsYSpektrum = GpsLinksOben[0] - GpsRechtsUnten[0];
-    private double GpsXSpektrum = GpsRechtsUnten[1] - GpsLinksOben[1];
-
-    public void calculateCoordinates(double currentPositionGpsX, double currentPositionGpsY) {
-
-        Log.d(TAG, "calculateCoordinates()");
-        Log.d(TAG, "pixWidth:" + pixWidth);
-        Log.d(TAG, "pixHeight:" + pixHeight);
-
-
-        // Berechnung X Achse
-        double XCoordInSpectrum = currentPositionGpsX - GpsLinksOben[1];
-        Log.d(TAG, "GpsXSpektrum: " + GpsXSpektrum);
-        Log.d(TAG, "XCoordInSpectrum: " + XCoordInSpectrum);
-        double XCoordInPercent = XCoordInSpectrum / GpsXSpektrum;
-        Log.d(TAG, "XCoordInPercent: " + XCoordInPercent);
-        double relativePixelPositionX = pixWidth * XCoordInPercent;
-
-        Log.d(TAG, "relativePixelPositionX: " + relativePixelPositionX);
-
-        pixelX = (int)relativePixelPositionX;
-
-        // Berechnung Y Achse
-        double YCoordInSpectrum = currentPositionGpsY - GpsRechtsUnten[0];
-        Log.d(TAG, "GpsYSpektrum: " + GpsYSpektrum);
-        Log.d(TAG, "YCoordInSpectrum: " + YCoordInSpectrum);
-        double YCoordInPercent = YCoordInSpectrum / GpsYSpektrum;
-        Log.d(TAG, "YCoordInPercent: " + YCoordInPercent);
-        double relativePixelPositionY = pixHeight * (1.0-YCoordInPercent);
-
-        Log.d(TAG, "relativePixelPositionY: " + relativePixelPositionY);
-
-        pixelY = (int)relativePixelPositionY;
-
-        // return;
-    }*/
 
 }

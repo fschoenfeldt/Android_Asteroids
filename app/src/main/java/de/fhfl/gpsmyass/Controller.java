@@ -24,8 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Controller extends Activity implements SensorEventListener {
-
-    public LocationListener locationListener;
+    public static Model model = new Model();
 
     private static final String TAG = "hsflController";
     private final int zweiUndVierzig = 42;
@@ -51,15 +50,6 @@ public class Controller extends Activity implements SensorEventListener {
         Log.i(TAG, "onCreate():");
         setContentView(R.layout.activity_main);
 
-        // Register the listener with the Location Manager to receive location updates
-        // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener); // via WLAN
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, zweiUndVierzig);
-//        }
-
-        // Acquire a reference to the system Location Manager
-//        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
         // Sensorobjekt bekommen
         mysensormanager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         gyroskop = mysensormanager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
@@ -76,71 +66,12 @@ public class Controller extends Activity implements SensorEventListener {
         gpsMap = (MeinTollesView) findViewById(R.id.GpsMap);
 
 
-
         shootButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("MissingPermission")
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 Log.i(TAG, "btn_shoot: onClick()");
                 mySpaceShip.fire();
-                // Define a listener that responds to location updates
-//                locationListener = new LocationListener() {
-//                    public void onLocationChanged(Location location) {
-//                        // Called when a new location is found by the network location provider.
-//                        str = "onLocationChanged(Location: " + location.toString() + ")";
-//
-//
-//                        double y = location.getLatitude();
-//                        double x = location.getLongitude();
-//
-//
-//                        Log.d(TAG, str);
-//                        debugView.setText(str);
-//
-//                       /*
-//                            Beispielrechnung
-//                            Umrechnung GPS Koordinaten => Pixel Koordinaten
-//                            xGPSmax - xGPSmin = xGPS_Spektrum
-//                            xPixel = xPixel_Spektrum
-//
-//                            Eingabe: xGPS Koordinate (muss dann -xGPSmin gerechnet werden)
-//                            Ergebnis: xGPS_Koord_in_Spektrum
-//
-//                            xGPS_Spektrum / xGPS_Koord_in_Spektrum = Prozentuale Position im Spektrum
-//
-//                            Diese Prozente können dann benutzt werden, um die Pixel Koordinate auszurechnen.
-//
-//                         */
-//                        // GPS Koordinaten ausrechnen
-//                        gpsMap.calculateCoordinates(x,y);
-//                        // GPS Map neu zeichnen lassen
-//                        gpsMap.invalidate();
-//
-//                        //GpsMap.drawGpsCoordinates(test, x, y);
-//                    }
-//
-//                    public void onStatusChanged(String provider, int status, Bundle extras) {
-//                        Log.d(TAG, "onStatusChanged(provider: " + provider + " status: " + status + " extras: " + extras.toString());
-//                        Log.d(TAG, str);
-//                        debugView.setText(str);
-//                    }
-//
-//                    public void onProviderEnabled(String provider) {
-//                        str = "onProviderEnabled(provider: " + provider;
-//                        Log.d(TAG, str);
-//                        debugView.setText(str);
-//                    }
-//
-//                    public void onProviderDisabled(String provider) {
-//                        str = "onProviderDisabled(provider: " + provider;
-//                        Log.d(TAG, str);
-//                        debugView.setText(str);
-//                    }
-//                };
-//
-//
-//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-//                        0, 0, locationListener); // via GPS
             }
         });
 
@@ -149,7 +80,6 @@ public class Controller extends Activity implements SensorEventListener {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "btn_restart: onClick()");
-//                locationManager.removeUpdates(locationListener); // https://stackoverflow.com/a/39367402
             }
         });
 
@@ -158,7 +88,6 @@ public class Controller extends Activity implements SensorEventListener {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "btn_reset: onClick()");
-//                gpsMap.calculateCoordinates(-100000000,-100000000);
                 // GPS Map neu zeichnen lassen
                 gpsMap.invalidate();
             }
@@ -173,10 +102,11 @@ public class Controller extends Activity implements SensorEventListener {
 
         if(gyroskop != null) { // Prüfen ob der Sensor aktiv bzw. vorhanden ist
             mysensormanager.registerListener(this, gyroskop, SensorManager.SENSOR_DELAY_GAME);
+            model.startTimer();
         }
         else {
             Log.e(TAG, "Controller.onStart(): Gyroscope not found!!!");
-            // Hier Toast/Meldung ausgeben, dass Gyroskop im Handy fehlt..
+            // !TODO Hier Toast/Meldung ausgeben, dass Gyroskop im Handy fehlt..
         }
     }
 

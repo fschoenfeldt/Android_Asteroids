@@ -4,13 +4,12 @@
  * @since 1.0
  *
  * History:
- * - 12.12.2019 hinzugefügt
+ * - 12.01.2020 hinzugefügt
  */
-
 package de.fhfl.gpsmyass;
 
-public class Bullet extends Moveable {
-    public Bullet(float x, float y) {
+public class Asteroid extends Moveable {
+    Asteroid(float x, float y) {
         super();
         this.init();
         this.move(x,y);
