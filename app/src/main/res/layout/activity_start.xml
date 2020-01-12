@@ -21,16 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/gamelogo"
-        android:layout_width="259dp"
-        android:layout_height="165dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/assteroids_logo" />
-
     <Button
         android:id="@+id/start_game_btn"
         android:layout_width="141dp"
@@ -48,9 +38,20 @@
         android:layout_marginBottom="48dp"
         android:text="Muhalideen Ibrahim \nGöran Kirchhoff \nFrederik Schönfeldt"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
         android:textSize="24sp"
         android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/start_game_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="192dp"
+        android:layout_height="286dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/assteroids_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
