@@ -32,9 +32,12 @@ public class Model {
     public static int bulletSpeed = 10;
     public static int asteroidSpeed = 3;
 
+    // Sonstige Variablen
+    private static int countDownInterval = 1000;
+
     // Werte für Countdown
     private static int myCounter = 0;
-    private static CountDownTimer myTimer = new CountDownTimer(Long.MAX_VALUE, 1000) {
+    private static CountDownTimer myTimer = new CountDownTimer(Long.MAX_VALUE, countDownInterval) {
         @Override
         public void onTick(long millisUntilFinished) {
             Log.d(TAG, "Model.myTimer.onTick():" + myCounter);
@@ -65,5 +68,6 @@ public class Model {
         myAsteroids.add(new Asteroid(x,y));
     }; // !TODO Scoping muss evtl. angepasst werden, wenn mehrere Asteroiden aufgrund einer Explosion entstehen sollen..
 
+    
     // !TODO Alles ins Model überführen!
 }
