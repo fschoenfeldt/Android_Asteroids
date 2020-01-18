@@ -4,7 +4,8 @@
  * @since 1.0
  *
  * History:
- * - %
+ * - 01.12.2019 Implementierung
+ * - 18.01.2020 Statische Referenz auf Model, statt klassenweite Initialisierung
  */
 
 package de.fhfl.gpsmyass;
@@ -24,7 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Controller extends Activity implements SensorEventListener {
-    public static Model model = new Model();
+    //public static Model model = new Model();
 
     private static final String TAG = "hsflController";
     private final int zweiUndVierzig = 42;
@@ -102,7 +103,7 @@ public class Controller extends Activity implements SensorEventListener {
 
         if(gyroskop != null) { // Prüfen ob der Sensor aktiv bzw. vorhanden ist
             mysensormanager.registerListener(this, gyroskop, SensorManager.SENSOR_DELAY_GAME);
-            model.startTimer();
+            Model.startTimer();
         }
         else {
             Log.e(TAG, "Controller.onStart(): Gyroscope not found!!!");

@@ -6,6 +6,9 @@
  * History:
  * - 1.3 Eigenes View auf dem gezeichnet werden kann
  * - 1.4 Anpassungen für Asteroids
+ * - 18.01.2020 2.0 - Statische Zugriffe auf das Model, um Objekte wie Asteroids, Bullets & Spaceship zu bekommen
+ *                  - Alte Codefragmente und Kommentare entfernt
+ *                  - Überladener Konstruktor MeinTollesView(x,y) als Standard genommen, alten Konstruktor entfernt
  */
 package de.fhfl.gpsmyass;
 
@@ -39,16 +42,11 @@ public class MeinTollesView extends View {
     private float pixWidth;
     private float pixHeight;
 
-
     public static Boolean viewIsReady = false;
-    public static Spaceship mySpaceShip;  // !TODO zum Model hinzufügen
 
-    public static ArrayList<Bullet> myBullets = new ArrayList<Bullet>(); // !TODO zum Model hinzufügen
-
-
-    public MeinTollesView(Context context) {
-        super(context);
-    }
+    // Statischer Zugriff auf das Model
+    public static Spaceship mySpaceShip = Model.mySpaceship;
+    public static ArrayList<Bullet> myBullets = Model.myBullets;
 
     // dieser Konstruktor wird aufgerufen, wenn das GUI-Element in der XML-Datei definiert ist
     public MeinTollesView(Context context, AttributeSet attrs) {
@@ -76,21 +74,14 @@ public class MeinTollesView extends View {
         // Pixel Abmessungen des Views
         pixWidth = (int)this.getWidth();
         pixHeight = (int)this.getHeight();
-
         Log.d(TAG, "MeinTollesView.onSizeChanged(): pixWidth: " + pixWidth + " pixHeight: " + pixHeight);
 
-
-        mySpaceShip = new Spaceship(pixWidth/2,pixHeight-100); // !TODO
+        mySpaceShip = new Spaceship(pixWidth/2,pixHeight-100); // !TODO ggf. über Model-Methode mit Parameter laufen lassen..
 
         // für andere Klassen, um zu wissen, dass die Breite und Höhe nun gesetzt sind.
         viewIsReady = true;
         Log.i(TAG, "MeinTollesView.onSizeChanged(): View ist nun ready");
     }
-
-    /*public MeinTollesView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }*/
-
 
     @Override
     protected void onDraw(Canvas canvas)   // Hier die Grafik ausgeben
@@ -106,14 +97,14 @@ public class MeinTollesView extends View {
 
         mySpaceShip.draw(canvas);
 
-        // Alle Bullets an ihrer aktuellen Position zeichnen..
+        // Alle Bullets & Asteroiden an ihrer aktuellen Position zeichnen..
         for(Bullet oneBullet : myBullets) {
-            oneBullet.move(oneBullet.getX(), oneBullet.getY()-3);
+            oneBullet.move(oneBullet.getX(), oneBullet.getY()-Model.bulletSpeed);
             oneBullet.draw(canvas);
         }
 
-        for(Asteroid oneAsteroid : Controller.model.myAsteroids) {
-            oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+3);
+        for(Asteroid oneAsteroid : Model.myAsteroids) {
+            oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+Model.asteroidSpeed);
             oneAsteroid.draw(canvas);
         }
 

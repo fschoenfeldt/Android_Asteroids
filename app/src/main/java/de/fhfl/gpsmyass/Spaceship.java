@@ -4,7 +4,7 @@
  * @since 1.0
  *
  * History:
- * - %
+ * - 12.12.2019 hinzugefügt
  */
 package de.fhfl.gpsmyass;
 
@@ -30,6 +30,6 @@ public class Spaceship extends Moveable {
 
     public void fire() {
         Bullet oneBullet = new Bullet(x, y-40);
-        MeinTollesView.myBullets.add(oneBullet);  // !TODO zum Model hinzufügen - Zugriff über Model regeln!
+        Model.myBullets.add(oneBullet);
     }
 }
