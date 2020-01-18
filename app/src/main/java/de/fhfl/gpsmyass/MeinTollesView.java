@@ -35,8 +35,8 @@ public class MeinTollesView extends View {
     private Rect rView;
     private Rect rKarte;
 
-    private int pixelX = 0;
-    private int pixelY = 0;
+    //private int pixelX = 0;
+    //private int pixelY = 0;
 
     // Breite und Höhe des Views in Pixel
     private float pixWidth;
@@ -86,31 +86,42 @@ public class MeinTollesView extends View {
     @Override
     protected void onDraw(Canvas canvas)   // Hier die Grafik ausgeben
     {
-        super.onDraw(canvas);
-        Log.v(TAG, "onDraw():  ");
+        if(viewIsReady) {
+            super.onDraw(canvas);
+            Log.v(TAG, "onDraw():  ");
 
-        //Controller activity = (Controller) this.getContext();
-        rView.set(0, 0, this.getWidth(), this.getHeight());
+            //Controller activity = (Controller) this.getContext();
+            rView.set(0, 0, this.getWidth(), this.getHeight());
 
-        // Karte darstellen
-        canvas.drawBitmap(fhMap, rKarte, rView, myPaint);
+            // Karte darstellen
+            canvas.drawBitmap(fhMap, rKarte, rView, myPaint);
 
-        mySpaceShip.draw(canvas);
+            mySpaceShip.draw(canvas);
 
-        // Alle Bullets & Asteroiden an ihrer aktuellen Position zeichnen..
-        for(Bullet oneBullet : myBullets) {
-            oneBullet.move(oneBullet.getX(), oneBullet.getY()-Model.bulletSpeed);
-            oneBullet.draw(canvas);
+            // Alle Bullets & Asteroiden an ihrer aktuellen Position zeichnen..
+            for(Bullet oneBullet : myBullets) {
+                oneBullet.move(oneBullet.getX(), oneBullet.getY()-Model.bulletSpeed);
+                oneBullet.draw(canvas);
+            }
+
+            for(Asteroid oneAsteroid : Model.myAsteroids) {
+                oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+Model.asteroidSpeed);
+                oneAsteroid.draw(canvas);
+            }
+
+            Model.checkCollision(this);
+
+            // ein Text
+            // canvas.drawText("don't forget the droids", 10, 25, myPaint);
+
         }
+    }
 
-        for(Asteroid oneAsteroid : Model.myAsteroids) {
-            oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+Model.asteroidSpeed);
-            oneAsteroid.draw(canvas);
-        }
-
-        // ein Text
-        // canvas.drawText("don't forget the droids", 10, 25, myPaint);
-
+    public int getpixHeight() {
+        return this.getHeight();
+    }
+    public int getpixWidth() {
+        return  this.getWidth();
     }
 
 }

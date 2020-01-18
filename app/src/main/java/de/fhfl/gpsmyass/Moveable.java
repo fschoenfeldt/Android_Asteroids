@@ -53,14 +53,14 @@ public class Moveable extends Drawable implements Serializable {
     }
 
     public void move(float getX, float getY) {
-        Log.v(TAG, "Moveable.move()");
+        //!DEBUG Log.v(TAG, "Moveable.move()");
         x = getX;
         y = getY;
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas) {
-        canvas.drawCircle(x,y, 20, myPaint);
+    public void draw(@NonNull Canvas canvas) { // !TODO eigene Draws für aufbauende Objekte erstellen
+        canvas.drawCircle(x,y, 20, myPaint); // !TODO Radius als Variable sodass Objekte verschieden Groß sein können
     }
 
     @Override

@@ -71,7 +71,7 @@ public class Controller extends Activity implements SensorEventListener {
             @SuppressLint("MissingPermission")
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                Log.i(TAG, "btn_shoot: onClick()");
+                Log.d(TAG, "btn_shoot: onClick()");
                 mySpaceShip.fire();
             }
         });
@@ -80,7 +80,7 @@ public class Controller extends Activity implements SensorEventListener {
             // Bei Klick die Updates des Listeners deaktivieren..
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "btn_restart: onClick()");
+                Log.d(TAG, "btn_restart: onClick()");
             }
         });
 
@@ -88,7 +88,7 @@ public class Controller extends Activity implements SensorEventListener {
 
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "btn_reset: onClick()");
+                Log.d(TAG, "btn_reset: onClick()");
                 // GPS Map neu zeichnen lassen
                 gpsMap.invalidate();
             }
@@ -140,10 +140,9 @@ public class Controller extends Activity implements SensorEventListener {
             // Spaceship bei Sensordatenänderung bewegen.. !TODO dirty
             mySpaceShip.move(xRot*10, 0); // !TODO ggf auch Y Koordinaten übergeben yRot*100
             gpsMap.invalidate();
-            Log.v(TAG, "X Rotation: " + Float.toString(xRot) + "   Y Rotation: " + Float.toString(yRot) + "   Z Rotation: " + Float.toString(zRot));
+            // !DEBUG Log.v(TAG, "X Rotation: " + Float.toString(xRot) + "   Y Rotation: " + Float.toString(yRot) + "   Z Rotation: " + Float.toString(zRot));
 
         } else {
-
             Log.i(TAG, "Controller.onSensorChanged(): View is not ready yet!");
         }
     }

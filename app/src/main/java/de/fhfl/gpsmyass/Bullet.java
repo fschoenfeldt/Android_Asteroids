@@ -15,4 +15,9 @@ public class Bullet extends Moveable {
         this.init();
         this.move(x,y);
     }
+    /* !TODO !IMPORTANT GRAFIKEN EINFÜGEN
+    @Override
+    public void draw(@NonNull Canvas canvas) { // !TODO eigene Draws für aufbauende Objekte erstellen
+        canvas.drawCircle(x,y, 20, myPaint);
+    }*/
 }
