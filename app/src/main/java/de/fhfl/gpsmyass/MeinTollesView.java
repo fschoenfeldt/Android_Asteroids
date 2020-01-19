@@ -32,12 +32,9 @@ public class MeinTollesView extends View {
     private Paint myPaint;
 
     // von: Android More Apps pdf
-    private Bitmap fhMap;
+    private Bitmap spaceMap;
     private Rect rView;
     private Rect rKarte;
-
-    //private int pixelX = 0;
-    //private int pixelY = 0;
 
     // Breite und Höhe des Views in Pixel
     private float pixWidth;
@@ -62,10 +59,10 @@ public class MeinTollesView extends View {
         myPaint.setStrokeWidth(5);
         myPaint.setColor(Color.BLACK);
 
-        fhMap = BitmapFactory.decodeResource(getResources(), R.drawable.spacy_background);
+        spaceMap = BitmapFactory.decodeResource(getResources(), R.drawable.spacy_background);
         rView = new Rect();
         rKarte = new Rect();
-        rKarte.set(0,0,fhMap.getWidth(),fhMap.getHeight());
+        rKarte.set(0,0,spaceMap.getWidth(),spaceMap.getHeight());
 
     }
 
@@ -96,11 +93,10 @@ public class MeinTollesView extends View {
             super.onDraw(canvas);
             Log.v(TAG, "onDraw():  ");
 
-            //Controller activity = (Controller) this.getContext();
             rView.set(0, 0, this.getWidth(), this.getHeight());
 
             // Karte darstellen
-            canvas.drawBitmap(fhMap, rKarte, rView, myPaint);
+            canvas.drawBitmap(spaceMap, rKarte, rView, myPaint);
 
             mySpaceShip.draw(canvas);
 
@@ -115,7 +111,7 @@ public class MeinTollesView extends View {
                 oneBullet.draw(canvas);
             }
 
-
+            // Alle Objekte rekursiv auf Kollisionen prüfen
             Model.checkCollision(this);
 
         }

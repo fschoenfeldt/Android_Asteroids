@@ -26,6 +26,8 @@ public class Spaceship extends Moveable {
     @Override
     public void move(float getX, float getY) {
         Log.v("Spaceship", "Moveable.move()");
+
+        // Rotationswerte rauf- bzw. runterrechnen
         if(getX > 1.0 || getX < -1.0) {
             x += getX;
         }
@@ -35,8 +37,7 @@ public class Spaceship extends Moveable {
     }
 
     public void fire() {
-        Bullet oneBullet = new Bullet(x+15, y-40); // mit hardcoded Offset
-        Model.myBullets.add(oneBullet);
+        Model.myBullets.add(new Bullet(x+15, y-40)); // !TODO nicht mit hardcoded Offset machen
     }
 
     @Override
@@ -44,5 +45,4 @@ public class Spaceship extends Moveable {
         Bitmap bitmap = BitmapFactory.decodeResource(MeinTollesView.myContext.getResources(), R.drawable.spaceship);
         canvas.drawBitmap(bitmap, x, y, myPaint);
     }
-
 }

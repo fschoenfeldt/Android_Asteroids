@@ -29,54 +29,41 @@ public class Moveable extends Drawable implements Serializable {
     protected transient float x = 0;
     protected transient float y = 0;
 
-    private static int screenWidth;
-    private static int screenHeight;
-
-    // Zentrum vom Moveable
-    protected float centerX, centerY;
-
-    private Bitmap myBitmap;
     protected Paint myPaint;
 
-    public void init(/* Bitmap bitmap */) { // !TODO Bitmap implementieren
-//        this.myBitmap = bitmap; // !TODO Bitmap implementieren
-//        centerX = bitmap.getWidth()/2; // !TODO Bitmap implementieren
-//        centerY = bitmap.getHeight()/2; // !TODO Bitmap implementieren
-
+    public void init() {
         myPaint = new Paint();
         myPaint.setStyle(Paint.Style.FILL);
         myPaint.setColor(Color.WHITE);
     }
 
     public void move(float getX, float getY) {
-        //!DEBUG Log.v(TAG, "Moveable.move()");
         x = getX;
         y = getY;
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas) { // !TODO eigene Draws für aufbauende Objekte erstellen
+    public void draw(@NonNull Canvas canvas) {
         canvas.drawCircle(x,y, 20, myPaint); // !TODO Radius als Variable sodass Objekte verschieden Groß sein können
     }
 
+    public float getX() { return this.x; }
+
+    public float getY() { return this.y; }
+
     @Override
     public void setAlpha(int alpha) {
-
+        // Muss angegeben, aber nicht benutzt werden
     }
 
     @Override
     public void setColorFilter(@Nullable ColorFilter colorFilter) {
-
+        // Muss angegeben, aber nicht benutzt werden
     }
 
     @Override
     public int getOpacity() {
+        // Muss angegeben, aber nicht benutzt werden
         return 0;
     }
-
-    public float getX() {
-        return this.x;
-    }
-
-    public float getY() { return this.y; }
 }
