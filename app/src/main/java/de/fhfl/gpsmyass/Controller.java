@@ -56,12 +56,7 @@ public class Controller extends Activity implements SensorEventListener {
         gyroskop = mysensormanager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         // UI Elemente finden..
-        debugView = (TextView) findViewById(R.id.debug_info);
-        debugView.setText("Anwendung gestartet! (onCreate)");
-
         shootButton = (Button) findViewById(R.id.btn_shoot);
-        restartButton = (Button) findViewById(R.id.btn_restart);
-        resetButton = (Button) findViewById(R.id.btn_reset);
 
         // GPSMap View finden..
         gpsMap = (MeinTollesView) findViewById(R.id.GpsMap);
@@ -73,24 +68,6 @@ public class Controller extends Activity implements SensorEventListener {
                 // Code here executes on main thread after user presses button
                 Log.d(TAG, "btn_shoot: onClick()");
                 mySpaceShip.fire();
-            }
-        });
-
-        restartButton.setOnClickListener(new View.OnClickListener() {
-            // Bei Klick die Updates des Listeners deaktivieren..
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "btn_restart: onClick()");
-            }
-        });
-
-        resetButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "btn_reset: onClick()");
-                // GPS Map neu zeichnen lassen
-                gpsMap.invalidate();
             }
         });
 
