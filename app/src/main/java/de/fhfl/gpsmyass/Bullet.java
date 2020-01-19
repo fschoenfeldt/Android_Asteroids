@@ -9,15 +9,22 @@
 
 package de.fhfl.gpsmyass;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+
+import androidx.annotation.NonNull;
+
 public class Bullet extends Moveable {
     public Bullet(float x, float y) {
         super();
         this.init();
         this.move(x,y);
     }
-    /* !TODO !IMPORTANT GRAFIKEN EINFÜGEN
+
     @Override
-    public void draw(@NonNull Canvas canvas) { // !TODO eigene Draws für aufbauende Objekte erstellen
-        canvas.drawCircle(x,y, 20, myPaint);
-    }*/
+    public void draw(@NonNull Canvas canvas) {
+        Bitmap bitmap = BitmapFactory.decodeResource(MeinTollesView.myContext.getResources(), R.drawable.schuss2_transparent);
+        canvas.drawBitmap(bitmap, x, y, myPaint);
+    }
 }

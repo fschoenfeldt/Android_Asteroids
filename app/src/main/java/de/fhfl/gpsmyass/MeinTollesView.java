@@ -27,6 +27,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 public class MeinTollesView extends View {
+    public static Context myContext = null;
     private static final String TAG = "hsflMeinTollesView";
     private Paint myPaint;
 
@@ -52,6 +53,7 @@ public class MeinTollesView extends View {
     // dieser Konstruktor wird aufgerufen, wenn das GUI-Element in der XML-Datei definiert ist
     public MeinTollesView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        myContext = context;
         Log.v(TAG, "MeinTollesView(Context context, AttributeSet attrs):  ");
         // TODO Auto-generated constructor stub
         myPaint = new Paint();
@@ -100,15 +102,16 @@ public class MeinTollesView extends View {
             mySpaceShip.draw(canvas);
 
             // Alle Bullets & Asteroiden an ihrer aktuellen Position zeichnen..
+            for(Asteroid oneAsteroid : myAsteroids) {
+                oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+Model.asteroidSpeed);
+                oneAsteroid.draw(canvas);
+            }
+
             for(Bullet oneBullet : myBullets) {
                 oneBullet.move(oneBullet.getX(), oneBullet.getY()-Model.bulletSpeed);
                 oneBullet.draw(canvas);
             }
 
-            for(Asteroid oneAsteroid : myAsteroids) {
-                oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+Model.asteroidSpeed);
-                oneAsteroid.draw(canvas);
-            }
 
             Model.checkCollision(this);
 
@@ -121,5 +124,4 @@ public class MeinTollesView extends View {
     public int getpixWidth() {
         return  this.getWidth();
     }
-
 }

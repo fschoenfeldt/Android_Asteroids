@@ -81,7 +81,7 @@ public class Model {
         for(Bullet oneBullet : myBullets) { //!INFO For of Schleife erlaubt keine Löschung von Objekten, während man durch das Objekt iteriert..
             for(Asteroid oneAsteroid : myAsteroids) {
                 // Kollisionsüberprüfung Bullet <---> Asteroid
-                if(oneBullet.getX() - oneAsteroid.getX() < 30 && oneBullet.getX() - oneAsteroid.getX() > -30  && oneBullet.getY() - oneAsteroid.getY() < 30 && oneBullet.getY() - oneAsteroid.getY() > -30) { //!TODO Radius als Variable sodass Objekte verschieden Groß sein können
+                if(oneBullet.getX() - oneAsteroid.getX() < 50 && oneBullet.getX() - oneAsteroid.getX() > -50  && oneBullet.getY() - oneAsteroid.getY() < 50 && oneBullet.getY() - oneAsteroid.getY() > -50) { //!TODO Radius als Variable sodass Objekte verschieden Groß sein können
                     Log.i(TAG, "Model.checkCollision(): Kollision gefunden!");
                     asteroidToRemove = oneAsteroid;
                     bulletToRemove = oneBullet;

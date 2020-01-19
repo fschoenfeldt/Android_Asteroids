@@ -8,7 +8,13 @@
  */
 package de.fhfl.gpsmyass;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 public class Spaceship extends Moveable {
     public Spaceship(float x, float y) {
@@ -29,14 +35,14 @@ public class Spaceship extends Moveable {
     }
 
     public void fire() {
-        Bullet oneBullet = new Bullet(x, y-40);
+        Bullet oneBullet = new Bullet(x+15, y-40); // mit hardcoded Offset
         Model.myBullets.add(oneBullet);
     }
 
-    /* !TODO !IMPORTANT GRAFIKEN EINFÜGEN
     @Override
-    public void draw(@NonNull Canvas canvas) { // !TODO eigene Draws für aufbauende Objekte erstellen
-        canvas.drawCircle(x,y, 20, myPaint);
-    }*/
+    public void draw(@NonNull Canvas canvas) {
+        Bitmap bitmap = BitmapFactory.decodeResource(MeinTollesView.myContext.getResources(), R.drawable.spaceship);
+        canvas.drawBitmap(bitmap, x, y, myPaint);
+    }
 
 }

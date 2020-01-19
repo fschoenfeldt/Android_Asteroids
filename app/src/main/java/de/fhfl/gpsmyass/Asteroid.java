@@ -8,6 +8,8 @@
  */
 package de.fhfl.gpsmyass;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import androidx.annotation.NonNull;
@@ -18,9 +20,10 @@ public class Asteroid extends Moveable {
         this.init();
         this.move(x,y);
     }
-    /* !TODO !IMPORTANT GRAFIKEN EINFÜGEN
+
     @Override
-    public void draw(@NonNull Canvas canvas) { // !TODO eigene Draws für aufbauende Objekte erstellen
-        canvas.drawCircle(x,y, 20, myPaint);
-    }*/
+    public void draw(@NonNull Canvas canvas) {
+        Bitmap bitmap = BitmapFactory.decodeResource(MeinTollesView.myContext.getResources(), R.drawable.asteroid_sw);
+        canvas.drawBitmap(bitmap, x - bitmap.getWidth()/2, y - bitmap.getHeight()/2, myPaint);
+    }
 }
