@@ -39,11 +39,6 @@ public class Moveable extends Drawable implements Serializable {
 
     public void init(/* Bitmap bitmap */) { // !TODO Bitmap implementieren
 //        this.myBitmap = bitmap; // !TODO Bitmap implementieren
-
-//        float pixelPerTimeTic = speed * stTicDurationS;
-//        xSpeed = (float) Math.cos((double) direction*Math.PI/180f) * pixelPerTimeTic;
-//        ySpeed = (float) Math.sin((double) direction*Math.PI/180f) * pixelPerTimeTic;  // Achtung: y waechst in neg. Richtung
-
 //        centerX = bitmap.getWidth()/2; // !TODO Bitmap implementieren
 //        centerY = bitmap.getHeight()/2; // !TODO Bitmap implementieren
 

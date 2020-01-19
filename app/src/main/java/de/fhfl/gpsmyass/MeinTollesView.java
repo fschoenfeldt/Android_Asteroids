@@ -47,6 +47,7 @@ public class MeinTollesView extends View {
     // Statischer Zugriff auf das Model
     public static Spaceship mySpaceShip = Model.mySpaceship;
     public static ArrayList<Bullet> myBullets = Model.myBullets;
+    public static ArrayList<Asteroid> myAsteroids = Model.myAsteroids;
 
     // dieser Konstruktor wird aufgerufen, wenn das GUI-Element in der XML-Datei definiert ist
     public MeinTollesView(Context context, AttributeSet attrs) {
@@ -104,15 +105,12 @@ public class MeinTollesView extends View {
                 oneBullet.draw(canvas);
             }
 
-            for(Asteroid oneAsteroid : Model.myAsteroids) {
+            for(Asteroid oneAsteroid : myAsteroids) {
                 oneAsteroid.move(oneAsteroid.getX(), oneAsteroid.getY()+Model.asteroidSpeed);
                 oneAsteroid.draw(canvas);
             }
 
             Model.checkCollision(this);
-
-            // ein Text
-            // canvas.drawText("don't forget the droids", 10, 25, myPaint);
 
         }
     }

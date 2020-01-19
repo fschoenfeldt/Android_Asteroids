@@ -17,9 +17,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Random;
 
-
-import static de.fhfl.gpsmyass.MeinTollesView.mySpaceShip;
-
 public class Model {
     private static final String TAG = "hsflModel";
     public static Spaceship mySpaceship;
