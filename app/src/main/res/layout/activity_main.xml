@@ -20,11 +20,10 @@
 
     <de.fhfl.gpsmyass.MeinTollesView
         android:id="@+id/GpsMap"
-        android:layout_width="384dp"
-        android:layout_height="336dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="408dp"
+        android:layout_height="482dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
