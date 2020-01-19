@@ -11,6 +11,7 @@
  */
 package de.fhfl.gpsmyass;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.util.Log;
 
@@ -24,13 +25,16 @@ public class Model {
     public static ArrayList<Asteroid> myAsteroids = new ArrayList<Asteroid>();
 
     // Konfigurationsvariablen, könnten an eine Schwierigkeitsstufe gebunden werden
-    public static int bulletSpeed = 10;
-    public static int asteroidSpeed = 3;
+    public static int bulletSpeed = 10; // Standard: 10
+    public static int asteroidSpeed = 3; // Standard: 3
+    public static int asteroidSpawnSpeed = 10;
 
     // Sonstige Variablen
+    public static int score = 0;
+    public static boolean gameOver = false;
     private static float viewHeight = 0;
     private static float viewWidth = 0;
-    private static int countDownInterval = 300;
+    private static int countDownInterval = 100;
 
     // Werte für Countdown
     private static int myCounter = 0;
@@ -40,10 +44,13 @@ public class Model {
         @Override
         public void onTick(long millisUntilFinished) {
             Log.d(TAG, "Model.myTimer.onTick():" + myCounter);
-            int nextX = rand.nextInt((int)viewWidth);
+            int nextX = rand.nextInt((int)viewWidth - 50);
             int nextY = rand.nextInt((int)viewHeight);
 
-            if(myCounter % 3 == 0) {
+            if(myCounter % asteroidSpawnSpeed == 0) {
+                if(nextX < 50) {
+                    nextX = 50;
+                }
                 spawnAsteroid(nextX, 0); // !TODO Y-Wert vielleicht immer 0, damit einfacher
             }
 
@@ -60,6 +67,8 @@ public class Model {
     public static void startTimer() {
         myTimer.start();
     }
+
+    public static void stopTimer() { myTimer.cancel(); }
 
     public int getMyCounter() {
         return myCounter;
@@ -78,28 +87,31 @@ public class Model {
         Asteroid asteroidToRemove = null;
         Bullet bulletToRemove = null;
 
-        for(Bullet oneBullet : myBullets) { //!INFO For of Schleife erlaubt keine Löschung von Objekten, während man durch das Objekt iteriert..
-            for(Asteroid oneAsteroid : myAsteroids) {
+        for(Asteroid oneAsteroid : myAsteroids) { //!INFO For of Schleife erlaubt keine Löschung von Objekten, während man durch das Objekt iteriert..
+            for(Bullet oneBullet : myBullets) {
                 // Kollisionsüberprüfung Bullet <---> Asteroid
                 if(oneBullet.getX() - oneAsteroid.getX() < 50 && oneBullet.getX() - oneAsteroid.getX() > -50  && oneBullet.getY() - oneAsteroid.getY() < 50 && oneBullet.getY() - oneAsteroid.getY() > -50) { //!TODO Radius als Variable sodass Objekte verschieden Groß sein können
                     Log.i(TAG, "Model.checkCollision(): Kollision gefunden!");
                     asteroidToRemove = oneAsteroid;
                     bulletToRemove = oneBullet;
+                    Model.score += 100;
                 }
-
-                // Kollisionsüberprüfung Asteroid <---> Welt
-                if(oneAsteroid.getY() > myView.getHeight()) {
-                    asteroidToRemove = oneAsteroid;
+                // Kollisionsüberprüfung Bullet <---> Welt
+                if(oneBullet.y < 10) {
+                    bulletToRemove = oneBullet;
                 }
             }
-
-            // Kollisionsüberprüfung Bullet <---> Welt
-            if(oneBullet.y < 10) {
-                bulletToRemove = oneBullet;
+            // Kollisionsüberprüfung Asteroid <---> Welt
+            if(oneAsteroid.getY() > myView.getHeight()) {
+                asteroidToRemove = oneAsteroid;
             }
-
+            // Kollisionsüberprüfung Asteroid <---> Spaceship
+            if ( mySpaceship.getX() - oneAsteroid.getX() < 50 && mySpaceship.getX() - oneAsteroid.getX() > -70  && mySpaceship.getY() - oneAsteroid.getY() < 50 && mySpaceship.getY() - oneAsteroid.getY() > -50) {
+                asteroidToRemove = oneAsteroid;
+                Log.i(TAG, "Model.checkCollision(): Kollision zwischen Spieler und Asteroid!");
+                gameOver = true;
+            }
         }
-
         if(asteroidToRemove != null)
             removeAsteroid(asteroidToRemove);
 
@@ -113,7 +125,6 @@ public class Model {
     private static void removeBullet(Bullet bulletToRemove) {
         myBullets.remove(bulletToRemove);
     }
-
 
     // !TODO Alles ins Model überführen!
 }

@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/btn_shoot"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="252dp"
         android:layout_height="118dp"
         android:layout_marginTop="68dp"
@@ -24,6 +25,20 @@
         android:layout_height="482dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="48dp"
+        android:background="@android:color/background_dark"
+        android:text="123456"
+        android:textSize="18sp"
+        android:typeface="monospace"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

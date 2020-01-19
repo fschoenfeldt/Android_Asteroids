@@ -13,6 +13,7 @@ package de.fhfl.gpsmyass;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -28,13 +29,9 @@ public class Controller extends Activity implements SensorEventListener {
     //public static Model model = new Model();
 
     private static final String TAG = "hsflController";
-    private final int zweiUndVierzig = 42;
 
-    private TextView debugView;
+    private TextView scoreView;
     private Button shootButton;
-    private Button restartButton;
-    private Button resetButton;
-    private String str;
 
     public MeinTollesView gpsMap;
 
@@ -57,6 +54,7 @@ public class Controller extends Activity implements SensorEventListener {
 
         // UI Elemente finden..
         shootButton = (Button) findViewById(R.id.btn_shoot);
+        scoreView = (TextView) findViewById(R.id.score);
 
         // GPSMap View finden..
         gpsMap = (MeinTollesView) findViewById(R.id.GpsMap);
@@ -94,6 +92,7 @@ public class Controller extends Activity implements SensorEventListener {
         super.onStop();
         if (gyroskop != null) {
             mysensormanager.unregisterListener(this);
+            Model.stopTimer();
         }
         else {
             Log.e(TAG, "Controller.onStop(): Gyroscope not found!!!");
@@ -104,10 +103,17 @@ public class Controller extends Activity implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         Log.v(TAG, "Controller.onSensorChanged()");
 
+        scoreView.setText("SCORE: " +Integer.toString(Model.score));
+
+        if(Model.gameOver) {
+            gameOver();
+            Model.gameOver = false;
+        }
+
         // Gucken, ob die Map (MeinTollesView) schon ready ist
         if(MeinTollesView.viewIsReady) {
-            // Spaceship bekommenee
-            mySpaceShip = gpsMap.mySpaceShip;
+            // Spaceship bekommen
+            mySpaceShip = Model.mySpaceship;
 
             // Hier passiert der Spaß
             float yRot = event.values[0];
@@ -127,5 +133,12 @@ public class Controller extends Activity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Muss wohl nicht verwendet werden aber vorhanden sein..
+    }
+
+    public void gameOver() {
+        Model.stopTimer();
+        setContentView(R.layout.activity_end);
+        startActivity(new Intent(Controller.this, ActivityEnd.class));
+        finish();
     }
 }

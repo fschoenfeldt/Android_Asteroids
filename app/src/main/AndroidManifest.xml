@@ -29,6 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+        <activity android:name=".ActivityEnd" android:screenOrientation="portrait">
+        </activity>
        <!-- <activity android:name=".Controller"
             android:screenOrientation="portrait">
             <intent-filter>

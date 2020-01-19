@@ -79,7 +79,10 @@ public class MeinTollesView extends View {
         pixHeight = (int)this.getHeight();
         Log.d(TAG, "MeinTollesView.onSizeChanged(): pixWidth: " + pixWidth + " pixHeight: " + pixHeight);
 
-        mySpaceShip = new Spaceship(pixWidth/2,pixHeight-100); // !TODO ggf. über Model-Methode mit Parameter laufen lassen..
+        Model.mySpaceship = new Spaceship(pixWidth/2,pixHeight-100); // !TODO ggf. über Model-Methode mit Parameter laufen lassen..
+        mySpaceShip = Model.mySpaceship;
+        myBullets = Model.myBullets;
+        myAsteroids = Model.myAsteroids;
 
         // für andere Klassen, um zu wissen, dass die Breite und Höhe nun gesetzt sind.
         viewIsReady = true;
