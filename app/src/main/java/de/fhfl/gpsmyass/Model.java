@@ -25,7 +25,7 @@ public class Model {
     public static ArrayList<Asteroid> myAsteroids = new ArrayList<Asteroid>();
 
     // Konfigurationsvariablen, könnten an eine Schwierigkeitsstufe gebunden werden
-    public static int bulletSpeed = 10; // Standard: 10
+    public static int bulletSpeed = 20; // Standard: 20
     public static int asteroidSpeed = 3; // Standard: 3
     public static int asteroidSpawnSpeed = 10;
 
@@ -52,6 +52,11 @@ public class Model {
                     nextX = 50;
                 }
                 spawnAsteroid(nextX, 0); // !TODO Y-Wert vielleicht immer 0, damit einfacher
+            }
+
+            if(myCounter % 60 == 0 && asteroidSpawnSpeed > 5) {
+                asteroidSpawnSpeed--;
+                asteroidSpeed++;
             }
 
             myCounter++;
@@ -124,6 +129,12 @@ public class Model {
     }
     private static void removeBullet(Bullet bulletToRemove) {
         myBullets.remove(bulletToRemove);
+    }
+
+    public static void setDefaults() {
+        bulletSpeed = 20;
+        asteroidSpeed = 3;
+        asteroidSpawnSpeed = 10;
     }
 
     // !TODO Alles ins Model überführen!

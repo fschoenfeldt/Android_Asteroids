@@ -26,25 +26,26 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="141dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="28dp"
         android:text="Start!"
-        app:layout_constraintBottom_toBottomOf="@+id/start_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="262dp"
         android:layout_height="121dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="52dp"
         android:text="Muhalideen Ibrahim \nGöran Kirchhoff \nFrederik Schönfeldt"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@+id/start_game_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <ImageView
         android:id="@+id/imageView3"

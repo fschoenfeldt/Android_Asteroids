@@ -29,7 +29,7 @@ public class ActivityEnd extends Activity {
         Model.myAsteroids = new ArrayList<Asteroid>();
 
         TextView scoreView = (TextView)findViewById(R.id.scoreView);
-        scoreView.setText("YOUR SCORE: \n" + Integer.toString(Model.score));
+        scoreView.setText("YOUR SCORE: " + Integer.toString(Model.score));
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

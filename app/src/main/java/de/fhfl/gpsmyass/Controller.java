@@ -136,6 +136,7 @@ public class Controller extends Activity implements SensorEventListener {
     }
 
     public void gameOver() {
+        Model.setDefaults();
         Model.stopTimer();
         setContentView(R.layout.activity_end);
         startActivity(new Intent(Controller.this, ActivityEnd.class));

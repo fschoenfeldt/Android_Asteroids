@@ -21,10 +21,11 @@
 
     <de.fhfl.gpsmyass.MeinTollesView
         android:id="@+id/GpsMap"
-        android:layout_width="408dp"
-        android:layout_height="482dp"
+        android:layout_width="411dp"
+        android:layout_height="485dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,14 +33,15 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="44dp"
         android:background="@android:color/background_dark"
         android:text="123456"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:typeface="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/GpsMap" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
