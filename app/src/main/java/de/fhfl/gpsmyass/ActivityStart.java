@@ -30,6 +30,4 @@ public class ActivityStart extends Activity {
         };
         startGame.setOnClickListener(onClickListener);
     }
-
-
 }

@@ -20,6 +20,8 @@ import java.util.Random;
 
 public class Model {
     private static final String TAG = "hsflModel";
+
+    // Spielobjekte als statische Felder
     public static Spaceship mySpaceship;
     public static ArrayList<Bullet> myBullets = new ArrayList<Bullet>();
     public static ArrayList<Asteroid> myAsteroids = new ArrayList<Asteroid>();
@@ -44,19 +46,21 @@ public class Model {
         @Override
         public void onTick(long millisUntilFinished) {
             Log.d(TAG, "Model.myTimer.onTick():" + myCounter);
+
+            // Zufallswerte für den Asteroiden-Spawn erstellen
             int nextX = rand.nextInt((int)viewWidth - 50);
-            int nextY = rand.nextInt((int)viewHeight);
+            // int nextY = rand.nextInt((int)viewHeight); // !IDEA Asteroiden auch zufällig auf der Y Achse verteilen
 
             if(myCounter % asteroidSpawnSpeed == 0) {
                 if(nextX < 50) {
                     nextX = 50;
                 }
-                spawnAsteroid(nextX, 0); // !TODO Y-Wert vielleicht immer 0, damit einfacher
+                myAsteroids.add(new Asteroid(nextX,0)); // Asteroid an der gewünschten Stelle hinzufügen
             }
 
-            if(myCounter % 60 == 0 && asteroidSpawnSpeed > 5) {
-                asteroidSpawnSpeed--;
-                asteroidSpeed++;
+            if(myCounter % 60 == 0 && asteroidSpawnSpeed > 4) {
+                asteroidSpawnSpeed--; // Mehr Asteroiden spawnwn
+                asteroidSpeed++; // Asteroiden sollen schneller werden
             }
 
             myCounter++;
@@ -69,19 +73,9 @@ public class Model {
         }
     };
 
-    public static void startTimer() {
-        myTimer.start();
-    }
+    public static void startTimer() { myTimer.start(); }
 
     public static void stopTimer() { myTimer.cancel(); }
-
-    public int getMyCounter() {
-        return myCounter;
-    }
-
-    private static void spawnAsteroid(int x, int y) {
-        myAsteroids.add(new Asteroid(x,y));
-    };
 
     public static void checkCollision(MeinTollesView myView) {
         // Sehr hacky..
@@ -92,10 +86,10 @@ public class Model {
         Asteroid asteroidToRemove = null;
         Bullet bulletToRemove = null;
 
-        for(Asteroid oneAsteroid : myAsteroids) { //!INFO For of Schleife erlaubt keine Löschung von Objekten, während man durch das Objekt iteriert..
+        for(Asteroid oneAsteroid : myAsteroids) { // !INFO For of Schleife erlaubt keine Löschung von Objekten, während man durch das Objekt iteriert..
             for(Bullet oneBullet : myBullets) {
                 // Kollisionsüberprüfung Bullet <---> Asteroid
-                if(oneBullet.getX() - oneAsteroid.getX() < 50 && oneBullet.getX() - oneAsteroid.getX() > -50  && oneBullet.getY() - oneAsteroid.getY() < 50 && oneBullet.getY() - oneAsteroid.getY() > -50) { //!TODO Radius als Variable sodass Objekte verschieden Groß sein können
+                if(oneBullet.getX() - oneAsteroid.getX() < 50 && oneBullet.getX() - oneAsteroid.getX() > -50  && oneBullet.getY() - oneAsteroid.getY() < 50 && oneBullet.getY() - oneAsteroid.getY() > -50) {
                     Log.i(TAG, "Model.checkCollision(): Kollision gefunden!");
                     asteroidToRemove = oneAsteroid;
                     bulletToRemove = oneBullet;
@@ -109,6 +103,7 @@ public class Model {
             // Kollisionsüberprüfung Asteroid <---> Welt
             if(oneAsteroid.getY() > myView.getHeight()) {
                 asteroidToRemove = oneAsteroid;
+                Model.score -= 100;
             }
             // Kollisionsüberprüfung Asteroid <---> Spaceship
             if ( mySpaceship.getX() - oneAsteroid.getX() < 50 && mySpaceship.getX() - oneAsteroid.getX() > -70  && mySpaceship.getY() - oneAsteroid.getY() < 50 && mySpaceship.getY() - oneAsteroid.getY() > -50) {
@@ -117,6 +112,7 @@ public class Model {
                 gameOver = true;
             }
         }
+
         if(asteroidToRemove != null)
             removeAsteroid(asteroidToRemove);
 
@@ -124,18 +120,11 @@ public class Model {
             removeBullet(bulletToRemove);
     }
 
-    private static void removeAsteroid(Asteroid asteroidToRemove) {
-        myAsteroids.remove(asteroidToRemove);
-    }
-    private static void removeBullet(Bullet bulletToRemove) {
-        myBullets.remove(bulletToRemove);
-    }
+    private static void removeAsteroid(Asteroid asteroidToRemove) { myAsteroids.remove(asteroidToRemove); }
+    private static void removeBullet(Bullet bulletToRemove) { myBullets.remove(bulletToRemove); }
 
     public static void setDefaults() {
-        bulletSpeed = 20;
         asteroidSpeed = 3;
         asteroidSpawnSpeed = 10;
     }
-
-    // !TODO Alles ins Model überführen!
 }

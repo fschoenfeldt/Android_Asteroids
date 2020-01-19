@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="1337"
+        android:text="Hier wird die Endpunktzahl angezeigt"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:typeface="monospace"

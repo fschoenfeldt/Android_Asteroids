@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:background="@android:color/background_dark"
-        android:text="123456"
+        android:text="Hier wird der Score angezeigt"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:typeface="monospace"

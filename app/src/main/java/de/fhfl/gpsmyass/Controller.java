@@ -33,7 +33,7 @@ public class Controller extends Activity implements SensorEventListener {
     private TextView scoreView;
     private Button shootButton;
 
-    public MeinTollesView gpsMap;
+    public MeinTollesView spaceView;
 
     SensorManager mysensormanager;
     Sensor gyroskop;
@@ -57,7 +57,7 @@ public class Controller extends Activity implements SensorEventListener {
         scoreView = (TextView) findViewById(R.id.score);
 
         // GPSMap View finden..
-        gpsMap = (MeinTollesView) findViewById(R.id.GpsMap);
+        spaceView = (MeinTollesView) findViewById(R.id.GpsMap);
 
 
         shootButton.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class Controller extends Activity implements SensorEventListener {
 
             // Spaceship bei Sensordatenänderung bewegen.. !TODO dirty
             mySpaceShip.move(xRot*10, 0); // !TODO ggf auch Y Koordinaten übergeben yRot*100
-            gpsMap.invalidate();
+            spaceView.invalidate();
             // !DEBUG Log.v(TAG, "X Rotation: " + Float.toString(xRot) + "   Y Rotation: " + Float.toString(yRot) + "   Z Rotation: " + Float.toString(zRot));
 
         } else {
